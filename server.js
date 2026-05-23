@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
       res.status(500).send(err.message);
       return;
     }
-    let html = `<h1>Hotel App - Habitaciones</h1><ul>`;
+    ``let html = <h1>Hotel App - Habitaciones</h1><ul>;``
     rows.forEach(hab => {
       html += <li>Habitación ${hab.numero} - ${hab.tipo} - $${hab.precio} - ${hab.disponible ? 'Disponible' : 'Ocupada'}</li>;
     });
