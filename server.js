@@ -54,7 +54,7 @@ app.get('/', (req, res) => {
     rows.forEach(hab => {
         let clase = hab.disponible ? 'disponible' : 'ocupada';
         let estado = hab.disponible ? 'Disponible' : 'Ocupada';
-        html += <li class="${clase}">Habitación ${hab.numero} - ${hab.tipo} - $${hab.precio} - ${estado}</li>;
+        html += `<li class="${clase}">Habitación ${hab.numero} - ${hab.tipo} - $${hab.precio} - ${estado}</li>`;
     });
     
     html += `</ul>
