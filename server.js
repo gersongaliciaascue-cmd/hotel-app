@@ -32,22 +32,42 @@ db.serialize(() => {
 app.use(express.json());  
 app.use(express.static('public'));  
   
-// Ruta principal: mostrar habitaciones  
-app.get('/', (req, res) => {  
-  db.all("SELECT * FROM habitaciones", (err, rows) => {  
-    if (err) {  
-      res.status(500).send(err.message);  
-      return;  
-    }  
-    let html = `<h1>Hotel App - Habitaciones</h1><ul>`;  
-    rows.forEach(hab => {  
-        html += `<li>Habitación ${hab.numero} - ${hab.tipo} - $${hab.precio} - ${hab.disponible ? "Disponible" : 'Ocupada'}</li>`;  
-    });  
-    html += `</ul>`;  
-    res.send(html);  
-  });  
-});  
-  
-app.listen(PORT, () => {  
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);  
+// Ruta principal: mostrar habitaciones
+app.get('/', (req, res) => {
+  db.all("SELECT * FROM habitaciones", (err, rows) => {
+    if (err) {
+      res.status(500).send(err.message);
+      return;
+    }
+    let html = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Hotel App</title>
+        <link rel="stylesheet" href="/style.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>🏨 Hotel App - Habitaciones</h1>
+            <ul>`;
+    
+    rows.forEach(hab => {
+        let clase = hab.disponible ? 'disponible' : 'ocupada';
+        let estado = hab.disponible ? 'Disponible' : 'Ocupada';
+        html += <li class="${clase}">Habitación ${hab.numero} - ${hab.tipo} - $${hab.precio} - ${estado}</li>;
+    });
+    
+    html += `</ul>
+        </div>
+    </body>
+    </html>`;
+    res.send(html);
+  });
 });
+
+
+
+
+
+
+
